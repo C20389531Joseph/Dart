@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+//https://www.youtube.com/watch?v=jNDsTI-poYo&list=PLzMcBGfZo4-knQWGK2IC49Q_5AnQrFpzv&index=3
+void main() 
+{
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget 
+{
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Test',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+// end of video
+class MyHomePage extends StatelessWidget 
+{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Sugar")), body: TextInputWidget());
+  }
+}
+class TextInputWidget extends StatefulWidget {
+  @override
+  State<TextInputWidget> createState() => _TextInputWidgetState();
+}
+
+class _TextInputWidgetState extends State<TextInputWidget> {
+  final controller = TextEditingController();
+  String text = "";
+
+  @override
+  void dispose(){
+    super.dispose();
+    controller.dispose();
+  }
+  void changetext(text){
+    if(text=="Hello"){
+      controller.clear();
+      text = "";
+    }
+    setState(() {
+      this.text = text;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      TextField(
+        controller: this.controller,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.message), labelText: "Type a message"),
+        onChanged: (text) => this.changetext(text),
+      ), Text(this.text)
+    ]);
+  }
+}
+
+
